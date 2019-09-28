@@ -35,9 +35,7 @@ class Web::Resumes::AnswersControllerTest < ActionDispatch::IntegrationTest
 
     answer = resume.answers.find_by! attrs
     assert { answer }
-
-    resume_owner = resume.user
-    assert { Notification.exists?(user: resume_owner, kind: :new_answer) }
+    assert { resume.user.notifications.exists?(kind: :new_answer) }
   end
 
   test '#create (validaton errors)' do
